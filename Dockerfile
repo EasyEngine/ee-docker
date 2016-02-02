@@ -25,6 +25,11 @@ RUN wget rt.cx/ee && bash ee
 # Install Nginx and PHP
 RUN LC_ALL=en_US.UTF-8 ee stack install --nginx --php
 
+# Nginx and PHP configuration
+RUN touch /var/log/php5-fpm.log
+RUN echo "daemon off;" >> /etc/nginx/nginx.conf
+RUN sed -i '/log_level = notice/adaemonize = no' /etc/php5/fpm/php-fpm.conf
+
 # Supervisor Config
 RUN /usr/bin/easy_install supervisor
 RUN /usr/bin/easy_install supervisor-stdout
