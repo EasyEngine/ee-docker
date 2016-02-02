@@ -1,0 +1,4 @@
+#!/bin/sh
+exec 2>&1
+mkdir -p /var/log/php5-fpm
+exec /usr/sbin/php5-fpm

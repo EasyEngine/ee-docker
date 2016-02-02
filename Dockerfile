@@ -19,11 +19,10 @@ RUN bash -c 'echo -e "[user]\n\tname = abc\n\temail = root@localhost.com" > /roo
 RUN wget rt.cx/ee && bash ee
 
 # Install Nginx and PHP
-RUN ee stack install --nginx --php; exit 0
+RUN LC_ALL=en_US.UTF-8 ee stack install --nginx --php
 
 # clean up for docker squash
 RUN rm -fr /usr/share/man && rm -fr /usr/share/doc && mkdir -p /etc/runit/3.d
-
 ADD runit-1 /etc/runit/1
 ADD runit-1.d-cleanup-pids /etc/runit/1.d/cleanup-pids
 ADD runit-1.d-anacron /etc/runit/1.d/anacron
@@ -33,3 +32,5 @@ ADD boot /sbin/boot
 
 ADD cron /etc/service/cron/run
 ADD rsyslog /etc/service/rsyslog/run
+ADD nginx /etc/service/nginx/run
+ADD php5-fpm /etc/service/php5-fpm/run
